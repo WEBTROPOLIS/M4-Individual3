@@ -115,6 +115,30 @@
         app:layout_constraintTop_toBottomOf="@+id/por"
         app:layout_constraintVertical_bias="0.02" />
 
+    <Button
+        android:id="@+id/c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(C)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/igual"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/igual"
+        app:layout_constraintVertical_bias="0.02" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="100dp"
@@ -122,7 +146,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/igual"
+        app:layout_constraintTop_toBottomOf="@+id/exit"
         app:srcCompat="@drawable/calcico" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

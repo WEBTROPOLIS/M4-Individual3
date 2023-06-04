@@ -23,14 +23,35 @@ public class MainActivity extends AppCompatActivity {
         Button div = findViewById(R.id.div);
         Button por = findViewById(R.id.por);
         Button igual = findViewById(R.id.igual);
+        Button exit = findViewById(R.id.exit);
+        Button c = findViewById(R.id.c);
 
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                screen1.setText("");
+                screen2.setText("");
+                numUser.setText("");
+            }
+        });
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String txt = numUser.getText().toString();
-                screen1.setText(txt);
-                screen2.setText("+ ");
-                numUser.setText("");
+                if (!txt.isEmpty()){
+                    screen1.setText(txt);
+                    screen2.setText("+ ");
+                    numUser.setText("");
+                }else{
+                    Toast.makeText(MainActivity.this,"Debe Ingresar un Valor", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -38,9 +59,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String txt = numUser.getText().toString();
-                screen1.setText(txt);
-                screen2.setText("- ");
-                numUser.setText("");
+                if (!txt.isEmpty()){
+                    screen1.setText(txt);
+                    screen2.setText("- ");
+                    numUser.setText("");
+                }else{
+                    Toast.makeText(MainActivity.this,"Debe Ingresar un Valor", Toast.LENGTH_LONG).show();
+
+                }
+
             }
         });
 
@@ -48,9 +75,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String txt = numUser.getText().toString();
-                screen1.setText(txt);
-                screen2.setText("/ ");
-                numUser.setText("");
+                if (!txt.isEmpty()){
+                    screen1.setText(txt);
+                    screen2.setText("/ ");
+                    numUser.setText("");
+                }else{
+                    Toast.makeText(MainActivity.this,"Debe Ingresar un Valor", Toast.LENGTH_LONG).show();
+
+                }
+
+
             }
         });
 
@@ -58,9 +92,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String txt = numUser.getText().toString();
-                screen1.setText(txt);
-                screen2.setText("* ");
-                numUser.setText("");
+                if (!txt.isEmpty()){
+                    screen1.setText(txt);
+                    screen2.setText("* ");
+                    numUser.setText("");
+                }else{
+                    Toast.makeText(MainActivity.this,"Debe Ingresar un Valor", Toast.LENGTH_LONG).show();
+
+                }
+
             }
         });
 
@@ -68,46 +108,50 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             String num1 = screen1.getText().toString();
+
             String op = screen2.getText().toString().trim();
             String num2 = numUser.getText().toString();
-            double resultado =0;
-            boolean flagDivCero= true;
-            switch (op){
-                case "+":
-                    resultado= Double.parseDouble(num1) + Double.parseDouble(num2);
-                    screen2.setText("+" + num2.toString()) ;
-                    break;
+            if (!num2.isEmpty()) {
 
-                case "-":
-                    resultado = Double.parseDouble(num1) - Double.parseDouble(num2);
-                    screen2.setText("-" + num2.toString()) ;
-                    break;
+                double resultado = 0;
+                boolean flagDivCero = true;
+                switch (op) {
+                    case "+":
+                        resultado = Double.parseDouble(num1) + Double.parseDouble(num2);
+                        screen2.setText("+" + num2.toString());
+                        break;
 
-                case "*":
-                    resultado=Double.parseDouble(num1) * Double.parseDouble(num2);
-                    screen2.setText("*" + num2.toString()) ;
-                    break;
+                    case "-":
+                        resultado = Double.parseDouble(num1) - Double.parseDouble(num2);
+                        screen2.setText("-" + num2.toString());
+                        break;
 
-                case "/":
-                    if (!num2.equals("0")){
-                        resultado= Double.parseDouble(num1) / Double.parseDouble(num2);
-                        screen2.setText("/" + num2.toString()) ;
-                    }else{
-                        flagDivCero=false;
-                        Toast.makeText(MainActivity.this, "No se puede dividir por cero", Toast.LENGTH_LONG).show();
-                    }
-                    break;
+                    case "*":
+                        resultado = Double.parseDouble(num1) * Double.parseDouble(num2);
+                        screen2.setText("*" + num2.toString());
+                        break;
+
+                    case "/":
+                        if (!num2.equals("0")) {
+                            resultado = Double.parseDouble(num1) / Double.parseDouble(num2);
+                            screen2.setText("/" + num2.toString());
+                        } else {
+                            flagDivCero = false;
+                            Toast.makeText(MainActivity.this, "No se puede dividir por cero", Toast.LENGTH_LONG).show();
+                        }
+                        break;
 
 
-
-
-            }
-                if (flagDivCero){
+                }
+                if (flagDivCero) {
                     numUser.setText(String.valueOf(resultado));
-                }else {
+                } else {
                     numUser.setText("Error al dividir por cero");
                 }
+            }else{
+                Toast.makeText(MainActivity.this,"Debe Ingresar un Valor", Toast.LENGTH_LONG).show();
 
+            }
             }
         });
     }
