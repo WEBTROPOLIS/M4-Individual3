@@ -1,158 +1,120 @@
-package com.example.m4_individual3;
+package com.example.m4_individual3
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        TextView screen1 = findViewById(R.id.Screen1);
-        TextView screen2 = findViewById(R.id.Screen2);
-        EditText numUser = findViewById(R.id.numUser);
-        Button mas = findViewById(R.id.mas);
-        Button resta = findViewById(R.id.resta);
-        Button div = findViewById(R.id.div);
-        Button por = findViewById(R.id.por);
-        Button igual = findViewById(R.id.igual);
-        Button exit = findViewById(R.id.exit);
-        Button c = findViewById(R.id.c);
-
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val screen1 = findViewById<TextView>(R.id.Screen1)
+        val screen2 = findViewById<TextView>(R.id.Screen2)
+        val numUser = findViewById<EditText>(R.id.numUser)
+        val mas = findViewById<Button>(R.id.mas)
+        val resta = findViewById<Button>(R.id.resta)
+        val div = findViewById<Button>(R.id.div)
+        val por = findViewById<Button>(R.id.por)
+        val igual = findViewById<Button>(R.id.igual)
+        val exit = findViewById<Button>(R.id.exit)
+        val c = findViewById<Button>(R.id.c)
+        exit.setOnClickListener { finish() }
+        c.setOnClickListener {
+            screen1.text = ""
+            screen2.text = ""
+            numUser.setText("")
+        }
+        mas.setOnClickListener {
+            val txt = numUser.text.toString()
+            if (!txt.isEmpty()) {
+                screen1.text = txt
+                screen2.text = "+ "
+                numUser.setText("")
+            } else {
+                Toast.makeText(this@MainActivity, "Debe Ingresar un Valor", Toast.LENGTH_LONG)
+                    .show()
             }
-        });
-        c.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                screen1.setText("");
-                screen2.setText("");
-                numUser.setText("");
+        }
+        resta.setOnClickListener {
+            val txt = numUser.text.toString()
+            if (!txt.isEmpty()) {
+                screen1.text = txt
+                screen2.text = "- "
+                numUser.setText("")
+            } else {
+                Toast.makeText(this@MainActivity, "Debe Ingresar un Valor", Toast.LENGTH_LONG)
+                    .show()
             }
-        });
-        mas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txt = numUser.getText().toString();
-                if (!txt.isEmpty()){
-                    screen1.setText(txt);
-                    screen2.setText("+ ");
-                    numUser.setText("");
-                }else{
-                    Toast.makeText(MainActivity.this,"Debe Ingresar un Valor", Toast.LENGTH_LONG).show();
-                }
-
+        }
+        div.setOnClickListener {
+            val txt = numUser.text.toString()
+            if (!txt.isEmpty()) {
+                screen1.text = txt
+                screen2.text = "/ "
+                numUser.setText("")
+            } else {
+                Toast.makeText(this@MainActivity, "Debe Ingresar un Valor", Toast.LENGTH_LONG)
+                    .show()
             }
-        });
-
-        resta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txt = numUser.getText().toString();
-                if (!txt.isEmpty()){
-                    screen1.setText(txt);
-                    screen2.setText("- ");
-                    numUser.setText("");
-                }else{
-                    Toast.makeText(MainActivity.this,"Debe Ingresar un Valor", Toast.LENGTH_LONG).show();
-
-                }
-
+        }
+        por.setOnClickListener {
+            val txt = numUser.text.toString()
+            if (!txt.isEmpty()) {
+                screen1.text = txt
+                screen2.text = "* "
+                numUser.setText("")
+            } else {
+                Toast.makeText(this@MainActivity, "Debe Ingresar un Valor", Toast.LENGTH_LONG)
+                    .show()
             }
-        });
-
-        div.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txt = numUser.getText().toString();
-                if (!txt.isEmpty()){
-                    screen1.setText(txt);
-                    screen2.setText("/ ");
-                    numUser.setText("");
-                }else{
-                    Toast.makeText(MainActivity.this,"Debe Ingresar un Valor", Toast.LENGTH_LONG).show();
-
-                }
-
-
-            }
-        });
-
-        por.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txt = numUser.getText().toString();
-                if (!txt.isEmpty()){
-                    screen1.setText(txt);
-                    screen2.setText("* ");
-                    numUser.setText("");
-                }else{
-                    Toast.makeText(MainActivity.this,"Debe Ingresar un Valor", Toast.LENGTH_LONG).show();
-
-                }
-
-            }
-        });
-
-        igual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            String num1 = screen1.getText().toString();
-
-            String op = screen2.getText().toString().trim();
-            String num2 = numUser.getText().toString();
+        }
+        igual.setOnClickListener {
+            val num1 = screen1.text.toString()
+            val op = screen2.text.toString().trim { it <= ' ' }
+            val num2 = numUser.text.toString()
             if (!num2.isEmpty()) {
+                var resultado = 0.0
+                var flagDivCero = true
+                when (op) {
+                    "+" -> {
+                        resultado = num1.toDouble() + num2.toDouble()
+                        screen2.text = "+$num2"
+                    }
 
-                double resultado = 0;
-                boolean flagDivCero = true;
-                switch (op) {
-                    case "+":
-                        resultado = Double.parseDouble(num1) + Double.parseDouble(num2);
-                        screen2.setText("+" + num2.toString());
-                        break;
+                    "-" -> {
+                        resultado = num1.toDouble() - num2.toDouble()
+                        screen2.text = "-$num2"
+                    }
 
-                    case "-":
-                        resultado = Double.parseDouble(num1) - Double.parseDouble(num2);
-                        screen2.setText("-" + num2.toString());
-                        break;
+                    "*" -> {
+                        resultado = num1.toDouble() * num2.toDouble()
+                        screen2.text = "*$num2"
+                    }
 
-                    case "*":
-                        resultado = Double.parseDouble(num1) * Double.parseDouble(num2);
-                        screen2.setText("*" + num2.toString());
-                        break;
-
-                    case "/":
-                        if (!num2.equals("0")) {
-                            resultado = Double.parseDouble(num1) / Double.parseDouble(num2);
-                            screen2.setText("/" + num2.toString());
-                        } else {
-                            flagDivCero = false;
-                            Toast.makeText(MainActivity.this, "No se puede dividir por cero", Toast.LENGTH_LONG).show();
-                        }
-                        break;
-
-
+                    "/" -> if (num2 != "0") {
+                        resultado = num1.toDouble() / num2.toDouble()
+                        screen2.text = "/$num2"
+                    } else {
+                        flagDivCero = false
+                        Toast.makeText(
+                            this@MainActivity,
+                            "No se puede dividir por cero",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
                 if (flagDivCero) {
-                    numUser.setText(String.valueOf(resultado));
+                    numUser.setText(resultado.toString())
                 } else {
-                    numUser.setText("Error al dividir por cero");
+                    numUser.setText("Error al dividir por cero")
                 }
-            }else{
-                Toast.makeText(MainActivity.this,"Debe Ingresar un Valor", Toast.LENGTH_LONG).show();
-
+            } else {
+                Toast.makeText(this@MainActivity, "Debe Ingresar un Valor", Toast.LENGTH_LONG)
+                    .show()
             }
-            }
-        });
+        }
     }
 }
